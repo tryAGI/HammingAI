@@ -1,0 +1,56 @@
+
+#nullable enable
+
+namespace HammingAI
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed partial class ChatMessage
+    {
+        /// <summary>
+        /// Message role (system, user, assistant).
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("role")]
+        public string? Role { get; set; }
+
+        /// <summary>
+        /// Message content.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("content")]
+        public string? Content { get; set; }
+
+        /// <summary>
+        /// Additional properties that are not explicitly defined in the schema
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonExtensionData]
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChatMessage" /> class.
+        /// </summary>
+        /// <param name="role">
+        /// Message role (system, user, assistant).
+        /// </param>
+        /// <param name="content">
+        /// Message content.
+        /// </param>
+#if NET7_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
+        public ChatMessage(
+            string? role,
+            string? content)
+        {
+            this.Role = role;
+            this.Content = content;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChatMessage" /> class.
+        /// </summary>
+        public ChatMessage()
+        {
+        }
+    }
+}

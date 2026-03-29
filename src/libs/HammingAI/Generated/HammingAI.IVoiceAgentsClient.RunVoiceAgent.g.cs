@@ -1,0 +1,39 @@
+#nullable enable
+
+namespace HammingAI
+{
+    public partial interface IVoiceAgentsClient
+    {
+        /// <summary>
+        /// Run voice agent test<br/>
+        /// Initiates a voice agent test run by making parallel calls using the specified dataset scenarios. Returns a voice experiment ID that can be used to track status and results.
+        /// </summary>
+        /// <param name="agentId"></param>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::HammingAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::HammingAI.RunVoiceAgentResponse> RunVoiceAgentAsync(
+            string agentId,
+
+            global::HammingAI.RunVoiceAgentRequest request,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Run voice agent test<br/>
+        /// Initiates a voice agent test run by making parallel calls using the specified dataset scenarios. Returns a voice experiment ID that can be used to track status and results.
+        /// </summary>
+        /// <param name="agentId"></param>
+        /// <param name="toNumber">
+        /// Phone number to call for the voice agent test.
+        /// </param>
+        /// <param name="datasetId">
+        /// Dataset ID containing test scenarios.
+        /// </param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        global::System.Threading.Tasks.Task<global::HammingAI.RunVoiceAgentResponse> RunVoiceAgentAsync(
+            string agentId,
+            string toNumber,
+            string datasetId,
+            global::System.Threading.CancellationToken cancellationToken = default);
+    }
+}

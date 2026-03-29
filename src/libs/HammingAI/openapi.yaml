@@ -1,0 +1,947 @@
+openapi: 3.0.1
+info:
+  title: Hamming AI API
+  description: API for testing and monitoring AI voice agents. Hamming provides automated voice agent testing, evaluation, production monitoring, datasets, experiments, prompts, and tracing for voice agents built on Vapi, RetellAI, Bland, LiveKit, and other platforms.
+  version: "1.0"
+servers:
+  - url: https://app.hamming.ai/api/rest
+security:
+  - BearerAuth: []
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    # --- Datasets ---
+    DatasetItemValue:
+      type: object
+      properties:
+        input:
+          type: object
+          additionalProperties: true
+          description: Input data for the dataset item.
+        output:
+          type: object
+          additionalProperties: true
+          description: Expected output data for the dataset item.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata for the dataset item.
+    DatasetItem:
+      allOf:
+        - $ref: '#/components/schemas/DatasetItemValue'
+        - type: object
+          properties:
+            id:
+              type: string
+              description: Unique identifier for the dataset item.
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dataset.
+        name:
+          type: string
+          description: Name of the dataset.
+        description:
+          type: string
+          nullable: true
+          description: Optional description.
+    DatasetWithItems:
+      allOf:
+        - $ref: '#/components/schemas/Dataset'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/DatasetItem'
+              description: Array of dataset items.
+    CreateDatasetRequest:
+      type: object
+      required:
+        - name
+        - items
+      properties:
+        name:
+          type: string
+          description: Name of the dataset.
+        description:
+          type: string
+          nullable: true
+          description: Optional description.
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetItemValue'
+          description: Array of dataset item values.
+    ListDatasetsResponse:
+      type: object
+      properties:
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+    GetDatasetResponse:
+      type: object
+      properties:
+        dataset:
+          $ref: '#/components/schemas/DatasetWithItems'
+    CreateDatasetResponse:
+      type: object
+      properties:
+        dataset:
+          $ref: '#/components/schemas/DatasetWithItems'
+
+    # --- Experiments ---
+    ExperimentStatus:
+      type: string
+      enum:
+        - CREATED
+        - RUNNING
+        - SCORING
+        - SCORING_FAILED
+        - FINISHED
+        - FAILED
+    ExperimentItemStatus:
+      type: string
+      enum:
+        - CREATED
+        - SCORING
+        - SCORED
+        - SCORING_FAILED
+        - FAILED
+    ScoreType:
+      type: string
+      enum:
+        - accuracy_ai
+        - facts_compare
+        - context_recall
+        - context_precision
+        - hallucination
+        - string_diff
+        - refusal
+        - sql_ast
+    Experiment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the experiment.
+        name:
+          type: string
+          description: Name of the experiment.
+        description:
+          type: string
+          nullable: true
+          description: Optional description.
+        datasetId:
+          type: string
+          description: ID of the dataset used for this experiment.
+        datasetVersionId:
+          type: integer
+          nullable: true
+          description: Optional dataset version ID.
+        status:
+          $ref: '#/components/schemas/ExperimentStatus'
+    ExperimentItemMetrics:
+      type: object
+      properties:
+        durationMs:
+          type: integer
+          description: Duration in milliseconds.
+    Score:
+      type: object
+      properties:
+        value:
+          type: number
+          description: Numeric score value.
+        reason:
+          type: string
+          nullable: true
+          description: Optional reason for the score.
+    ExperimentItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the experiment item.
+        experimentId:
+          type: string
+          description: ID of the parent experiment.
+        datasetItemId:
+          type: string
+          description: ID of the corresponding dataset item.
+        output:
+          type: object
+          additionalProperties: true
+          description: Output data from the experiment run.
+        metrics:
+          $ref: '#/components/schemas/ExperimentItemMetrics'
+        status:
+          $ref: '#/components/schemas/ExperimentItemStatus'
+    CreateExperimentRequest:
+      type: object
+      required:
+        - name
+        - dataset
+        - status
+      properties:
+        name:
+          type: string
+          description: Name of the experiment.
+        dataset:
+          type: string
+          description: Dataset ID to run the experiment against.
+        status:
+          $ref: '#/components/schemas/ExperimentStatus'
+        scoring:
+          type: array
+          items:
+            type: string
+          description: Array of scoring types to apply.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional metadata.
+        sampling:
+          type: integer
+          nullable: true
+          description: Number of samples per dataset item (max 10).
+    CreateExperimentResponse:
+      type: object
+      properties:
+        experiment:
+          $ref: '#/components/schemas/Experiment'
+    UpdateExperimentRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ExperimentStatus'
+    CreateExperimentItemRequest:
+      type: object
+      required:
+        - datasetItemId
+      properties:
+        datasetItemId:
+          type: string
+          description: ID of the dataset item.
+        output:
+          type: object
+          additionalProperties: true
+          description: Initial output (typically empty).
+        metrics:
+          type: object
+          additionalProperties: true
+          description: Initial metrics (typically empty).
+        sampleId:
+          type: integer
+          nullable: true
+          description: Sample index for multi-sample experiments.
+    CreateExperimentItemResponse:
+      type: object
+      properties:
+        item:
+          $ref: '#/components/schemas/ExperimentItem'
+    UpdateExperimentItemRequest:
+      type: object
+      properties:
+        output:
+          type: object
+          additionalProperties: true
+          description: Output data from the experiment run.
+        scores:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Score'
+          description: Scores keyed by scoring function name.
+        metrics:
+          $ref: '#/components/schemas/ExperimentItemMetrics'
+        failed:
+          type: boolean
+          description: Whether the item execution failed.
+
+    # --- Scoring ---
+    CustomScoringConfig:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the scoring config.
+        key_name:
+          type: string
+          description: Key name for the scoring function.
+    RegisterScoringFunctionsRequest:
+      type: object
+      properties:
+        scoring:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the scoring function.
+              version:
+                type: integer
+                description: Version of the scoring function.
+              score_config:
+                type: object
+                additionalProperties: true
+                description: Scoring configuration.
+              execution_config:
+                type: object
+                additionalProperties: true
+                description: Execution configuration.
+    RegisterScoringFunctionsResponse:
+      type: object
+      properties:
+        scoring:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomScoringConfig'
+
+    # --- Tracing ---
+    TraceEvent:
+      type: object
+      additionalProperties: true
+      description: A trace event containing arbitrary key-value data.
+    ExperimentTrace:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Local trace ID.
+        experimentItemId:
+          type: string
+          description: ID of the experiment item this trace belongs to.
+        parentId:
+          type: integer
+          nullable: true
+          description: ID of the parent trace.
+        event:
+          $ref: '#/components/schemas/TraceEvent'
+    CreateTracesRequest:
+      type: object
+      properties:
+        traces:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExperimentTrace'
+          description: Array of traces to create.
+
+    # --- Sessions (Monitoring) ---
+    CreateSessionRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Session metadata (e.g., environment).
+    CreateSessionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Session ID.
+
+    # --- Prompts ---
+    PromptSettings:
+      type: object
+      properties:
+        temperature:
+          type: number
+          nullable: true
+          description: Temperature for generation.
+        maxTokens:
+          type: integer
+          nullable: true
+          description: Maximum tokens.
+        topP:
+          type: number
+          nullable: true
+          description: Top P for nucleus sampling.
+        frequencyPenalty:
+          type: number
+          nullable: true
+          description: Frequency penalty.
+        presencePenalty:
+          type: number
+          nullable: true
+          description: Presence penalty.
+    ChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          description: Message role (system, user, assistant).
+        content:
+          type: string
+          description: Message content.
+    PromptContent:
+      type: object
+      properties:
+        languageModel:
+          type: string
+          description: Language model identifier.
+        promptSettings:
+          $ref: '#/components/schemas/PromptSettings'
+        chatMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          description: Chat messages in the prompt.
+        tools:
+          type: string
+          nullable: true
+          description: Tool definitions as a JSON string.
+    Prompt:
+      type: object
+      properties:
+        slug:
+          type: string
+          description: Prompt slug identifier.
+    PromptWithContent:
+      allOf:
+        - $ref: '#/components/schemas/Prompt'
+        - type: object
+          properties:
+            content:
+              $ref: '#/components/schemas/PromptContent'
+    ListPromptsResponse:
+      type: object
+      properties:
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prompt'
+    GetPromptResponse:
+      type: object
+      properties:
+        prompt:
+          $ref: '#/components/schemas/PromptWithContent'
+
+    # --- Voice Agent Testing ---
+    RunVoiceAgentRequest:
+      type: object
+      required:
+        - to_number
+        - dataset_id
+      properties:
+        to_number:
+          type: string
+          description: Phone number to call for the voice agent test.
+        dataset_id:
+          type: string
+          description: Dataset ID containing test scenarios.
+    RunVoiceAgentResponse:
+      type: object
+      properties:
+        voice_experiment_id:
+          type: string
+          description: ID of the created voice experiment.
+    VoiceExperiment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the voice experiment.
+        status:
+          type: string
+          description: Status of the voice experiment (e.g., RUNNING, FINISHED, FAILED).
+    VoiceExperimentCall:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Call ID.
+        scoring_status:
+          type: string
+          description: Scoring status for this call.
+        transcript:
+          type: string
+          nullable: true
+          description: Call transcript.
+        recording_url:
+          type: string
+          nullable: true
+          description: URL to the call recording.
+        duration_ms:
+          type: integer
+          nullable: true
+          description: Call duration in milliseconds.
+        metadata:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Additional call metadata.
+    VoiceExperimentCallsResponse:
+      type: object
+      properties:
+        calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoiceExperimentCall'
+
+    # --- LiveKit Room Creation ---
+    CreateLiveKitRoomsRequest:
+      type: object
+      required:
+        - datasetId
+        - datasetItemIds
+      properties:
+        datasetId:
+          type: string
+          description: Dataset ID for the test run.
+        datasetItemIds:
+          type: array
+          items:
+            type: string
+          description: Array of dataset item IDs to create rooms for.
+    LiveKitRoom:
+      type: object
+      properties:
+        roomName:
+          type: string
+          description: Name of the LiveKit room.
+        url:
+          type: string
+          description: URL for connecting to the room.
+        datasetItemId:
+          type: string
+          description: Associated dataset item ID.
+        token:
+          type: string
+          description: Authentication token for the room.
+    CreateLiveKitRoomsResponse:
+      type: object
+      properties:
+        experimentId:
+          type: string
+          description: ID of the created experiment.
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveKitRoom'
+
+    # --- Call Logs (Monitoring) ---
+    CallLogEntry:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: Voice agent provider (e.g., retell, vapi, custom).
+        metadata:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Metadata about the call (e.g., agent_name).
+        payload:
+          type: object
+          additionalProperties: true
+          description: Call payload data including call_id and recording_url.
+    CreateCallLogRequest:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: Voice agent provider.
+        metadata:
+          type: object
+          additionalProperties: true
+          nullable: true
+          description: Metadata about the call.
+        payload:
+          type: object
+          additionalProperties: true
+          description: Call payload data.
+
+paths:
+  # --- Datasets ---
+  /datasets:
+    get:
+      operationId: listDatasets
+      summary: List all datasets
+      description: Retrieves a list of all datasets in the workspace.
+      tags:
+        - Datasets
+      responses:
+        '200':
+          description: List of datasets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatasetsResponse'
+    post:
+      operationId: createDataset
+      summary: Create a dataset
+      description: Creates a new dataset with items containing input, output, and metadata.
+      tags:
+        - Datasets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetRequest'
+      responses:
+        '200':
+          description: Created dataset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDatasetResponse'
+  /datasets/{datasetId}:
+    get:
+      operationId: getDataset
+      summary: Get a dataset by ID
+      description: Retrieves a dataset with all its items.
+      tags:
+        - Datasets
+      parameters:
+        - name: datasetId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Dataset ID.
+      responses:
+        '200':
+          description: Dataset with items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDatasetResponse'
+
+  # --- Experiments ---
+  /experiments:
+    post:
+      operationId: createExperiment
+      summary: Create an experiment
+      description: Creates a new experiment linked to a dataset with specified scoring configuration.
+      tags:
+        - Experiments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExperimentRequest'
+      responses:
+        '200':
+          description: Created experiment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateExperimentResponse'
+  /experiments/{experimentId}:
+    patch:
+      operationId: updateExperiment
+      summary: Update experiment status
+      description: Updates the status of an experiment (e.g., to FINISHED or FAILED).
+      tags:
+        - Experiments
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Experiment ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExperimentRequest'
+      responses:
+        '200':
+          description: Experiment updated.
+  /experiments/{experimentId}/items:
+    post:
+      operationId: createExperimentItem
+      summary: Create an experiment item
+      description: Creates a new experiment item for a specific dataset item within an experiment.
+      tags:
+        - Experiments
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Experiment ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExperimentItemRequest'
+      responses:
+        '200':
+          description: Created experiment item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateExperimentItemResponse'
+  /experiments/{experimentId}/items/{itemId}:
+    patch:
+      operationId: updateExperimentItem
+      summary: Update an experiment item
+      description: Updates an experiment item with output, scores, and metrics after execution.
+      tags:
+        - Experiments
+      parameters:
+        - name: experimentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Experiment ID.
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Experiment item ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExperimentItemRequest'
+      responses:
+        '200':
+          description: Experiment item updated.
+
+  # --- Scoring ---
+  /scoring/register-functions:
+    post:
+      operationId: registerScoringFunctions
+      summary: Register custom scoring functions
+      description: Registers custom scoring functions for use in experiments. Returns configurations with generated IDs.
+      tags:
+        - Scoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterScoringFunctionsRequest'
+      responses:
+        '200':
+          description: Registered scoring configurations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterScoringFunctionsResponse'
+
+  # --- Tracing ---
+  /traces:
+    post:
+      operationId: createTraces
+      summary: Create experiment traces
+      description: Creates trace events for an experiment item, including LLM generations and retrieval operations.
+      tags:
+        - Tracing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTracesRequest'
+      responses:
+        '200':
+          description: Traces created.
+
+  # --- Sessions (Monitoring) ---
+  /sessions:
+    post:
+      operationId: createSession
+      summary: Create a monitoring session
+      description: Creates a new monitoring session for tracking live production calls and interactions.
+      tags:
+        - Monitoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '200':
+          description: Created session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
+
+  # --- Prompts ---
+  /prompts:
+    get:
+      operationId: listPrompts
+      summary: List prompts
+      description: Retrieves a list of all prompts, optionally filtered by label.
+      tags:
+        - Prompts
+      parameters:
+        - name: label
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter prompts by label.
+      responses:
+        '200':
+          description: List of prompts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPromptsResponse'
+  /prompts/{slug}:
+    get:
+      operationId: getPrompt
+      summary: Get a prompt by slug
+      description: Retrieves a prompt with its content including chat messages, model settings, and tools.
+      tags:
+        - Prompts
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Prompt slug identifier.
+        - name: label
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by label.
+        - name: version
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Specific version to retrieve.
+      responses:
+        '200':
+          description: Prompt with content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPromptResponse'
+
+  # --- Voice Agent Testing ---
+  /voice-agent/{agentId}/run:
+    post:
+      operationId: runVoiceAgent
+      summary: Run voice agent test
+      description: Initiates a voice agent test run by making parallel calls using the specified dataset scenarios. Returns a voice experiment ID that can be used to track status and results.
+      tags:
+        - VoiceAgents
+      parameters:
+        - name: agentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Voice agent ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunVoiceAgentRequest'
+      responses:
+        '200':
+          description: Voice experiment created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunVoiceAgentResponse'
+  /voice-experiment/{voiceExperimentId}:
+    get:
+      operationId: getVoiceExperiment
+      summary: Get voice experiment status
+      description: Retrieves the current status of a voice experiment (e.g., RUNNING, FINISHED, FAILED).
+      tags:
+        - VoiceAgents
+      parameters:
+        - name: voiceExperimentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Voice experiment ID.
+      responses:
+        '200':
+          description: Voice experiment status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceExperiment'
+  /voice-experiment/{voiceExperimentId}/calls:
+    get:
+      operationId: getVoiceExperimentCalls
+      summary: Get voice experiment calls
+      description: Retrieves the list of calls made during a voice experiment with their scoring status, transcripts, and recordings.
+      tags:
+        - VoiceAgents
+      parameters:
+        - name: voiceExperimentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Voice experiment ID.
+      responses:
+        '200':
+          description: Voice experiment calls.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceExperimentCallsResponse'
+
+  # --- LiveKit Rooms ---
+  /test-runs/create-livekit-rooms:
+    post:
+      operationId: createLiveKitRooms
+      summary: Create LiveKit test rooms
+      description: Creates LiveKit rooms for direct agent-to-agent voice testing. Returns room connection details including URLs and tokens for each dataset item.
+      tags:
+        - VoiceAgents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLiveKitRoomsRequest'
+      responses:
+        '200':
+          description: LiveKit rooms created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLiveKitRoomsResponse'
+
+  # --- Call Logs (Monitoring) ---
+  /v2/call-logs:
+    post:
+      operationId: createCallLog
+      summary: Log a call for monitoring
+      description: Submits a call recording and metadata for monitoring and evaluation. Hamming generates quality scores and insights from the call data.
+      tags:
+        - Monitoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCallLogRequest'
+      responses:
+        '200':
+          description: Call log created.
