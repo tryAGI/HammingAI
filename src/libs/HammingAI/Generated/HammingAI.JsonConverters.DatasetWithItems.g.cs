@@ -124,13 +124,13 @@ namespace HammingAI.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.Dataset), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.Dataset?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.Dataset).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
             }
             else if (value.IsValue2)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.DatasetWithItemsVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.DatasetWithItemsVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.DatasetWithItemsVariant2).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
             }
         }
     }
