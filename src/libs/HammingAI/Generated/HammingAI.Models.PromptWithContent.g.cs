@@ -13,35 +13,35 @@ namespace HammingAI
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::HammingAI.Prompt? Value1 { get; init; }
+        public global::HammingAI.Prompt? Prompt { get; init; }
 #else
-        public global::HammingAI.Prompt? Value1 { get; }
+        public global::HammingAI.Prompt? Prompt { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Prompt))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsPrompt => Prompt != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::HammingAI.PromptWithContentVariant2? Value2 { get; init; }
+        public global::HammingAI.PromptWithContentVariant2? PromptWithContentVariant2 { get; init; }
 #else
-        public global::HammingAI.PromptWithContentVariant2? Value2 { get; }
+        public global::HammingAI.PromptWithContentVariant2? PromptWithContentVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(PromptWithContentVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsPromptWithContentVariant2 => PromptWithContentVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::HammingAI.Prompt?(PromptWithContent @this) => @this.Value1;
+        public static implicit operator global::HammingAI.Prompt?(PromptWithContent @this) => @this.Prompt;
 
         /// <summary>
         /// 
         /// </summary>
         public PromptWithContent(global::HammingAI.Prompt? value)
         {
-            Value1 = value;
+            Prompt = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::HammingAI.PromptWithContentVariant2?(PromptWithContent @this) => @this.Value2;
+        public static implicit operator global::HammingAI.PromptWithContentVariant2?(PromptWithContent @this) => @this.PromptWithContentVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public PromptWithContent(global::HammingAI.PromptWithContentVariant2? value)
         {
-            Value2 = value;
+            PromptWithContentVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public PromptWithContent(
-            global::HammingAI.Prompt? value1,
-            global::HammingAI.PromptWithContentVariant2? value2
+            global::HammingAI.Prompt? prompt,
+            global::HammingAI.PromptWithContentVariant2? promptWithContentVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            Prompt = prompt;
+            PromptWithContentVariant2 = promptWithContentVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            PromptWithContentVariant2 as object ??
+            Prompt as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            Prompt?.ToString() ??
+            PromptWithContentVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace HammingAI
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsPrompt && IsPromptWithContentVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::HammingAI.Prompt?, TResult>? value1 = null,
-            global::System.Func<global::HammingAI.PromptWithContentVariant2?, TResult>? value2 = null,
+            global::System.Func<global::HammingAI.Prompt?, TResult>? prompt = null,
+            global::System.Func<global::HammingAI.PromptWithContentVariant2?, TResult>? promptWithContentVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsPrompt && prompt != null)
             {
-                return value1(Value1!);
+                return prompt(Prompt!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsPromptWithContentVariant2 && promptWithContentVariant2 != null)
             {
-                return value2(Value2!);
+                return promptWithContentVariant2(PromptWithContentVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace HammingAI
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::HammingAI.Prompt?>? value1 = null,
-            global::System.Action<global::HammingAI.PromptWithContentVariant2?>? value2 = null,
+            global::System.Action<global::HammingAI.Prompt?>? prompt = null,
+            global::System.Action<global::HammingAI.PromptWithContentVariant2?>? promptWithContentVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsPrompt)
             {
-                value1?.Invoke(Value1!);
+                prompt?.Invoke(Prompt!);
             }
-            else if (IsValue2)
+            else if (IsPromptWithContentVariant2)
             {
-                value2?.Invoke(Value2!);
+                promptWithContentVariant2?.Invoke(PromptWithContentVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace HammingAI
         {
             var fields = new object?[]
             {
-                Value1,
+                Prompt,
                 typeof(global::HammingAI.Prompt),
-                Value2,
+                PromptWithContentVariant2,
                 typeof(global::HammingAI.PromptWithContentVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace HammingAI
         public bool Equals(PromptWithContent other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::HammingAI.Prompt?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::HammingAI.PromptWithContentVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::HammingAI.Prompt?>.Default.Equals(Prompt, other.Prompt) &&
+                global::System.Collections.Generic.EqualityComparer<global::HammingAI.PromptWithContentVariant2?>.Default.Equals(PromptWithContentVariant2, other.PromptWithContentVariant2) 
                 ;
         }
 

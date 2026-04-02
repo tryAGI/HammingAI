@@ -35,8 +35,8 @@ namespace HammingAI.JsonConverters
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
             if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
-            global::HammingAI.Prompt? value1 = default;
-            global::HammingAI.PromptWithContentVariant2? value2 = default;
+            global::HammingAI.Prompt? prompt = default;
+            global::HammingAI.PromptWithContentVariant2? promptWithContentVariant2 = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -45,7 +45,7 @@ namespace HammingAI.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.Prompt), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.Prompt> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.Prompt).Name}");
-                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        prompt = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -60,7 +60,7 @@ namespace HammingAI.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.PromptWithContentVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.PromptWithContentVariant2> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.PromptWithContentVariant2).Name}");
-                        value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        promptWithContentVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -71,13 +71,13 @@ namespace HammingAI.JsonConverters
                 }
             }
 
-            if (value1 == null && value2 == null)
+            if (prompt == null && promptWithContentVariant2 == null)
             {
                 try
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.Prompt), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.Prompt> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.Prompt).Name}");
-                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    prompt = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -90,7 +90,7 @@ namespace HammingAI.JsonConverters
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.PromptWithContentVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.PromptWithContentVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.PromptWithContentVariant2).Name}");
-                    value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    promptWithContentVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -101,9 +101,9 @@ namespace HammingAI.JsonConverters
             }
 
             var __value = new global::HammingAI.PromptWithContent(
-                value1,
+                prompt,
 
-                value2
+                promptWithContentVariant2
                 );
 
             return __value;
@@ -118,17 +118,17 @@ namespace HammingAI.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsValue1)
+            if (value.IsPrompt)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.Prompt), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.Prompt?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.Prompt).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Prompt!, typeInfo);
             }
-            else if (value.IsValue2)
+            else if (value.IsPromptWithContentVariant2)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.PromptWithContentVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.PromptWithContentVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.PromptWithContentVariant2).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PromptWithContentVariant2!, typeInfo);
             }
         }
     }
