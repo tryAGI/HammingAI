@@ -5,6 +5,25 @@ namespace HammingAI
 {
     public partial class ScoringClient
     {
+
+
+        private static readonly global::HammingAI.EndPointSecurityRequirement s_RegisterScoringFunctionsSecurityRequirement0 =
+            new global::HammingAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::HammingAI.EndPointAuthorizationRequirement[]
+                {                    new global::HammingAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::HammingAI.EndPointSecurityRequirement[] s_RegisterScoringFunctionsSecurityRequirements =
+            new global::HammingAI.EndPointSecurityRequirement[]
+            {                s_RegisterScoringFunctionsSecurityRequirement0,
+            };
         partial void PrepareRegisterScoringFunctionsArguments(
             global::System.Net.Http.HttpClient httpClient,
             global::HammingAI.RegisterScoringFunctionsRequest request);
@@ -41,9 +60,15 @@ namespace HammingAI
                 httpClient: HttpClient,
                 request: request);
 
+
+            var __authorizations = global::HammingAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_RegisterScoringFunctionsSecurityRequirements,
+                operationName: "RegisterScoringFunctionsAsync");
+
             var __pathBuilder = new global::HammingAI.PathBuilder(
                 path: "/scoring/register-functions",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Post,
@@ -53,7 +78,7 @@ namespace HammingAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")

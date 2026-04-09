@@ -5,6 +5,25 @@ namespace HammingAI
 {
     public partial class VoiceAgentsClient
     {
+
+
+        private static readonly global::HammingAI.EndPointSecurityRequirement s_RunVoiceAgentSecurityRequirement0 =
+            new global::HammingAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::HammingAI.EndPointAuthorizationRequirement[]
+                {                    new global::HammingAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::HammingAI.EndPointSecurityRequirement[] s_RunVoiceAgentSecurityRequirements =
+            new global::HammingAI.EndPointSecurityRequirement[]
+            {                s_RunVoiceAgentSecurityRequirement0,
+            };
         partial void PrepareRunVoiceAgentArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref string agentId,
@@ -46,9 +65,15 @@ namespace HammingAI
                 agentId: ref agentId,
                 request: request);
 
+
+            var __authorizations = global::HammingAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_RunVoiceAgentSecurityRequirements,
+                operationName: "RunVoiceAgentAsync");
+
             var __pathBuilder = new global::HammingAI.PathBuilder(
                 path: $"/voice-agent/{agentId}/run",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Post,
@@ -58,7 +83,7 @@ namespace HammingAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
