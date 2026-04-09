@@ -5,6 +5,25 @@ namespace HammingAI
 {
     public partial class ExperimentsClient
     {
+
+
+        private static readonly global::HammingAI.EndPointSecurityRequirement s_UpdateExperimentItemSecurityRequirement0 =
+            new global::HammingAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::HammingAI.EndPointAuthorizationRequirement[]
+                {                    new global::HammingAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::HammingAI.EndPointSecurityRequirement[] s_UpdateExperimentItemSecurityRequirements =
+            new global::HammingAI.EndPointSecurityRequirement[]
+            {                s_UpdateExperimentItemSecurityRequirement0,
+            };
         partial void PrepareUpdateExperimentItemArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref string experimentId,
@@ -46,9 +65,15 @@ namespace HammingAI
                 itemId: ref itemId,
                 request: request);
 
+
+            var __authorizations = global::HammingAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_UpdateExperimentItemSecurityRequirements,
+                operationName: "UpdateExperimentItemAsync");
+
             var __pathBuilder = new global::HammingAI.PathBuilder(
                 path: $"/experiments/{experimentId}/items/{itemId}",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: new global::System.Net.Http.HttpMethod("PATCH"),
@@ -58,7 +83,7 @@ namespace HammingAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
