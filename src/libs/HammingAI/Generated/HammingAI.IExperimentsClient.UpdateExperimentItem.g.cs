@@ -11,6 +11,7 @@ namespace HammingAI
         /// <param name="experimentId"></param>
         /// <param name="itemId"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::HammingAI.ApiException"></exception>
         global::System.Threading.Tasks.Task UpdateExperimentItemAsync(
@@ -18,6 +19,7 @@ namespace HammingAI
             string itemId,
 
             global::HammingAI.UpdateExperimentItemRequest request,
+            global::HammingAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update an experiment item<br/>
@@ -35,6 +37,7 @@ namespace HammingAI
         /// <param name="failed">
         /// Whether the item execution failed.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task UpdateExperimentItemAsync(
@@ -44,6 +47,7 @@ namespace HammingAI
             global::System.Collections.Generic.Dictionary<string, global::HammingAI.Score>? scores = default,
             global::HammingAI.ExperimentItemMetrics? metrics = default,
             bool? failed = default,
+            global::HammingAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

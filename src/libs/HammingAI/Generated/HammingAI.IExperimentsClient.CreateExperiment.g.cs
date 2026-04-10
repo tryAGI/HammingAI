@@ -9,11 +9,13 @@ namespace HammingAI
         /// Creates a new experiment linked to a dataset with specified scoring configuration.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::HammingAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::HammingAI.CreateExperimentResponse> CreateExperimentAsync(
 
             global::HammingAI.CreateExperimentRequest request,
+            global::HammingAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an experiment<br/>
@@ -35,6 +37,7 @@ namespace HammingAI
         /// <param name="sampling">
         /// Number of samples per dataset item (max 10).
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::HammingAI.CreateExperimentResponse> CreateExperimentAsync(
@@ -44,6 +47,7 @@ namespace HammingAI
             global::System.Collections.Generic.IList<string>? scoring = default,
             object? metadata = default,
             int? sampling = default,
+            global::HammingAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
