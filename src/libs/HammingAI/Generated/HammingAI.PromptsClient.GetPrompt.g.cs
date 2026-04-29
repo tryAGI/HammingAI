@@ -139,7 +139,7 @@ namespace HammingAI
                 PrepareGetPromptRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    slug: slug,
+                    slug: slug!,
                     label: label,
                     version: version);
 

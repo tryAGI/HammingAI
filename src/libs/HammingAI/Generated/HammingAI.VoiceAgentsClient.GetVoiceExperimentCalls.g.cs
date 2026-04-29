@@ -125,7 +125,7 @@ namespace HammingAI
                 PrepareGetVoiceExperimentCallsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    voiceExperimentId: voiceExperimentId);
+                    voiceExperimentId: voiceExperimentId!);
 
                 return __httpRequest;
             }
