@@ -139,8 +139,8 @@ namespace HammingAI
                 PrepareUpdateExperimentItemRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    experimentId: experimentId,
-                    itemId: itemId,
+                    experimentId: experimentId!,
+                    itemId: itemId!,
                     request: request);
 
                 return __httpRequest;
