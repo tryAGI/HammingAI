@@ -43,7 +43,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public DatasetsClient Datasets => new DatasetsClient(HttpClient, authorizations: Authorizations, options: Options)
+        public DatasetsClient Datasets => new DatasetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -52,7 +52,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public ExperimentsClient Experiments => new ExperimentsClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ExperimentsClient Experiments => new ExperimentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -61,7 +61,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public MonitoringClient Monitoring => new MonitoringClient(HttpClient, authorizations: Authorizations, options: Options)
+        public MonitoringClient Monitoring => new MonitoringClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -70,7 +70,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public PromptsClient Prompts => new PromptsClient(HttpClient, authorizations: Authorizations, options: Options)
+        public PromptsClient Prompts => new PromptsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -79,7 +79,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public ScoringClient Scoring => new ScoringClient(HttpClient, authorizations: Authorizations, options: Options)
+        public ScoringClient Scoring => new ScoringClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -88,7 +88,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public TracingClient Tracing => new TracingClient(HttpClient, authorizations: Authorizations, options: Options)
+        public TracingClient Tracing => new TracingClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -97,7 +97,7 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
-        public VoiceAgentsClient VoiceAgents => new VoiceAgentsClient(HttpClient, authorizations: Authorizations, options: Options)
+        public VoiceAgentsClient VoiceAgents => new VoiceAgentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -136,10 +136,10 @@ namespace HammingAI
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public HammingAIClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::HammingAI.EndPointAuthorization>? authorizations = null,
-            global::HammingAI.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::HammingAI.EndPointAuthorization>? authorizations,
+            global::HammingAI.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 
