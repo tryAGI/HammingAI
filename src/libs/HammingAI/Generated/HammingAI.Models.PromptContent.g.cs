@@ -72,5 +72,6 @@ namespace HammingAI
         public PromptContent()
         {
         }
+
     }
 }

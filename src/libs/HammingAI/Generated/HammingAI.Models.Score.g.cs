@@ -52,5 +52,6 @@ namespace HammingAI
         public Score()
         {
         }
+
     }
 }

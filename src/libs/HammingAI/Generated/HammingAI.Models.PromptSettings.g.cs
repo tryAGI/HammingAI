@@ -85,5 +85,6 @@ namespace HammingAI
         public PromptSettings()
         {
         }
+
     }
 }

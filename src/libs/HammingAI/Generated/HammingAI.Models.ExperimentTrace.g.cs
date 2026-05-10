@@ -74,5 +74,6 @@ namespace HammingAI
         public ExperimentTrace()
         {
         }
+
     }
 }
