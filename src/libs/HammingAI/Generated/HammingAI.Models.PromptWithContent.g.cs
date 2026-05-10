@@ -42,6 +42,13 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public global::HammingAI.Prompt PickPrompt() => IsPrompt
+            ? Prompt!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Prompt' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.PromptWithContentVariant2? PromptWithContentVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace HammingAI
             value = PromptWithContentVariant2;
             return IsPromptWithContentVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.PromptWithContentVariant2 PickPromptWithContentVariant2() => IsPromptWithContentVariant2
+            ? PromptWithContentVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'PromptWithContentVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public static PromptWithContent FromPrompt(global::HammingAI.Prompt? value) => new PromptWithContent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PromptWithContent(global::HammingAI.PromptWithContentVariant2 value) => new PromptWithContent((global::HammingAI.PromptWithContentVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace HammingAI
         {
             PromptWithContentVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PromptWithContent FromPromptWithContentVariant2(global::HammingAI.PromptWithContentVariant2? value) => new PromptWithContent(value);
 
         /// <summary>
         /// 
