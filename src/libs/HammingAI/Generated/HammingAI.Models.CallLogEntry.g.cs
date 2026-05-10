@@ -63,5 +63,6 @@ namespace HammingAI
         public CallLogEntry()
         {
         }
+
     }
 }
