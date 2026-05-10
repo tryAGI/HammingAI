@@ -42,6 +42,13 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public global::HammingAI.Dataset PickDataset() => IsDataset
+            ? Dataset!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Dataset' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.DatasetWithItemsVariant2? DatasetWithItemsVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace HammingAI
             value = DatasetWithItemsVariant2;
             return IsDatasetWithItemsVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.DatasetWithItemsVariant2 PickDatasetWithItemsVariant2() => IsDatasetWithItemsVariant2
+            ? DatasetWithItemsVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DatasetWithItemsVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public static DatasetWithItems FromDataset(global::HammingAI.Dataset? value) => new DatasetWithItems(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator DatasetWithItems(global::HammingAI.DatasetWithItemsVariant2 value) => new DatasetWithItems((global::HammingAI.DatasetWithItemsVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace HammingAI
         {
             DatasetWithItemsVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static DatasetWithItems FromDatasetWithItemsVariant2(global::HammingAI.DatasetWithItemsVariant2? value) => new DatasetWithItems(value);
 
         /// <summary>
         /// 
