@@ -50,5 +50,6 @@ namespace HammingAI
         public CreateLiveKitRoomsResponse()
         {
         }
+
     }
 }

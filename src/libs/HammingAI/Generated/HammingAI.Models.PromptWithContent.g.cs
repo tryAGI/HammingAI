@@ -29,6 +29,26 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickPrompt(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::HammingAI.Prompt? value)
+        {
+            value = Prompt;
+            return IsPrompt;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.Prompt PickPrompt() => IsPrompt
+            ? Prompt!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Prompt' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.PromptWithContentVariant2? PromptWithContentVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace HammingAI
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(PromptWithContentVariant2))]
 #endif
         public bool IsPromptWithContentVariant2 => PromptWithContentVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickPromptWithContentVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::HammingAI.PromptWithContentVariant2? value)
+        {
+            value = PromptWithContentVariant2;
+            return IsPromptWithContentVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.PromptWithContentVariant2 PickPromptWithContentVariant2() => IsPromptWithContentVariant2
+            ? PromptWithContentVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'PromptWithContentVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public static PromptWithContent FromPrompt(global::HammingAI.Prompt? value) => new PromptWithContent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PromptWithContent(global::HammingAI.PromptWithContentVariant2 value) => new PromptWithContent((global::HammingAI.PromptWithContentVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace HammingAI
         {
             PromptWithContentVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PromptWithContent FromPromptWithContentVariant2(global::HammingAI.PromptWithContentVariant2? value) => new PromptWithContent(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace HammingAI
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::HammingAI.Prompt?, TResult>? prompt = null,
-            global::System.Func<global::HammingAI.PromptWithContentVariant2?, TResult>? promptWithContentVariant2 = null,
+            global::System.Func<global::HammingAI.Prompt, TResult>? prompt = null,
+            global::System.Func<global::HammingAI.PromptWithContentVariant2, TResult>? promptWithContentVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace HammingAI
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::HammingAI.Prompt?>? prompt = null,
-            global::System.Action<global::HammingAI.PromptWithContentVariant2?>? promptWithContentVariant2 = null,
+            global::System.Action<global::HammingAI.Prompt>? prompt = null,
+
+            global::System.Action<global::HammingAI.PromptWithContentVariant2>? promptWithContentVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsPrompt)
+            {
+                prompt?.Invoke(Prompt!);
+            }
+            else if (IsPromptWithContentVariant2)
+            {
+                promptWithContentVariant2?.Invoke(PromptWithContentVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::HammingAI.Prompt>? prompt = null,
+            global::System.Action<global::HammingAI.PromptWithContentVariant2>? promptWithContentVariant2 = null,
             bool validate = true)
         {
             if (validate)

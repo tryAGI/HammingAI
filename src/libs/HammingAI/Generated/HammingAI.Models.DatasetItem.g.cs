@@ -29,6 +29,26 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickValue(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::HammingAI.DatasetItemValue? value)
+        {
+            value = Value;
+            return IsValue;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.DatasetItemValue PickValue() => IsValue
+            ? Value!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Value' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.DatasetItemVariant2? DatasetItemVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace HammingAI
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(DatasetItemVariant2))]
 #endif
         public bool IsDatasetItemVariant2 => DatasetItemVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDatasetItemVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::HammingAI.DatasetItemVariant2? value)
+        {
+            value = DatasetItemVariant2;
+            return IsDatasetItemVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::HammingAI.DatasetItemVariant2 PickDatasetItemVariant2() => IsDatasetItemVariant2
+            ? DatasetItemVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DatasetItemVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace HammingAI
         /// <summary>
         /// 
         /// </summary>
+        public static DatasetItem FromValue(global::HammingAI.DatasetItemValue? value) => new DatasetItem(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator DatasetItem(global::HammingAI.DatasetItemVariant2 value) => new DatasetItem((global::HammingAI.DatasetItemVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace HammingAI
         {
             DatasetItemVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static DatasetItem FromDatasetItemVariant2(global::HammingAI.DatasetItemVariant2? value) => new DatasetItem(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace HammingAI
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::HammingAI.DatasetItemValue?, TResult>? value = null,
-            global::System.Func<global::HammingAI.DatasetItemVariant2?, TResult>? datasetItemVariant2 = null,
+            global::System.Func<global::HammingAI.DatasetItemValue, TResult>? value = null,
+            global::System.Func<global::HammingAI.DatasetItemVariant2, TResult>? datasetItemVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace HammingAI
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::HammingAI.DatasetItemValue?>? value = null,
-            global::System.Action<global::HammingAI.DatasetItemVariant2?>? datasetItemVariant2 = null,
+            global::System.Action<global::HammingAI.DatasetItemValue>? value = null,
+
+            global::System.Action<global::HammingAI.DatasetItemVariant2>? datasetItemVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsValue)
+            {
+                value?.Invoke(Value!);
+            }
+            else if (IsDatasetItemVariant2)
+            {
+                datasetItemVariant2?.Invoke(DatasetItemVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::HammingAI.DatasetItemValue>? value = null,
+            global::System.Action<global::HammingAI.DatasetItemVariant2>? datasetItemVariant2 = null,
             bool validate = true)
         {
             if (validate)

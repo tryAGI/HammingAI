@@ -87,6 +87,7 @@ namespace HammingAI.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.Prompt), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.Prompt> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.Prompt).Name}");
                     prompt = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -97,9 +98,13 @@ namespace HammingAI.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (prompt == null && promptWithContentVariant2 == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.PromptWithContentVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.PromptWithContentVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.PromptWithContentVariant2).Name}");
                     promptWithContentVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
