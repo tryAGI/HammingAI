@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateExperimentRequest
     {
@@ -23,7 +23,7 @@ namespace HammingAI
         public required string Dataset { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::HammingAI.JsonConverters.ExperimentStatusJsonConverter))]

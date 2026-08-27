@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ExperimentItem
     {
@@ -33,13 +33,13 @@ namespace HammingAI
         public object? Output { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metrics")]
         public global::HammingAI.ExperimentItemMetrics? Metrics { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::HammingAI.JsonConverters.ExperimentItemStatusJsonConverter))]

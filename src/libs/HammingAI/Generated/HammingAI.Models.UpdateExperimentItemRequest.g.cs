@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class UpdateExperimentItemRequest
     {
@@ -21,7 +21,7 @@ namespace HammingAI
         public global::System.Collections.Generic.Dictionary<string, global::HammingAI.Score>? Scores { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metrics")]
         public global::HammingAI.ExperimentItemMetrics? Metrics { get; set; }

@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class PromptContent
     {
@@ -15,7 +15,7 @@ namespace HammingAI
         public string? LanguageModel { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("promptSettings")]
         public global::HammingAI.PromptSettings? PromptSettings { get; set; }

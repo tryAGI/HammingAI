@@ -40,43 +40,43 @@ namespace HammingAI
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DatasetsClient Datasets { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ExperimentsClient Experiments { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MonitoringClient Monitoring { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PromptsClient Prompts { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScoringClient Scoring { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TracingClient Tracing { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VoiceAgentsClient VoiceAgents { get; }
 

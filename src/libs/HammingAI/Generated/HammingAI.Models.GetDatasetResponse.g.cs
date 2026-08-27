@@ -4,12 +4,12 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetDatasetResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("dataset")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::HammingAI.JsonConverters.DatasetWithItemsJsonConverter))]

@@ -5,12 +5,12 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public readonly partial struct PromptWithContent : global::System.IEquatable<PromptWithContent>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.Prompt? Prompt { get; init; }
@@ -19,7 +19,7 @@ namespace HammingAI
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Prompt))]
@@ -27,7 +27,7 @@ namespace HammingAI
         public bool IsPrompt => Prompt != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPrompt(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::HammingAI.Prompt PickPrompt() => IsPrompt
             ? Prompt!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Prompt' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::HammingAI.PromptWithContentVariant2? PromptWithContentVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace HammingAI
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(PromptWithContentVariant2))]
@@ -64,7 +64,7 @@ namespace HammingAI
         public bool IsPromptWithContentVariant2 => PromptWithContentVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPromptWithContentVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::HammingAI.PromptWithContentVariant2 PickPromptWithContentVariant2() => IsPromptWithContentVariant2
             ? PromptWithContentVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'PromptWithContentVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PromptWithContent(global::HammingAI.Prompt value) => new PromptWithContent((global::HammingAI.Prompt?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::HammingAI.Prompt?(PromptWithContent @this) => @this.Prompt;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PromptWithContent(global::HammingAI.Prompt? value)
         {
@@ -101,22 +101,22 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PromptWithContent FromPrompt(global::HammingAI.Prompt? value) => new PromptWithContent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PromptWithContent(global::HammingAI.PromptWithContentVariant2 value) => new PromptWithContent((global::HammingAI.PromptWithContentVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::HammingAI.PromptWithContentVariant2?(PromptWithContent @this) => @this.PromptWithContentVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PromptWithContent(global::HammingAI.PromptWithContentVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PromptWithContent FromPromptWithContentVariant2(global::HammingAI.PromptWithContentVariant2? value) => new PromptWithContent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PromptWithContent(
             global::HammingAI.Prompt? prompt,
@@ -141,23 +141,23 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             PromptWithContentVariant2 as object ??
-            Prompt as object 
+            Prompt as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Prompt?.ToString() ??
-            PromptWithContentVariant2?.ToString() 
+            PromptWithContentVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::HammingAI.Prompt, TResult>? prompt = null,
@@ -190,7 +190,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::HammingAI.Prompt>? prompt = null,
@@ -214,7 +214,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::HammingAI.Prompt>? prompt = null,
@@ -237,7 +237,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(PromptWithContent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::HammingAI.Prompt?>.Default.Equals(Prompt, other.Prompt) &&
-                global::System.Collections.Generic.EqualityComparer<global::HammingAI.PromptWithContentVariant2?>.Default.Equals(PromptWithContentVariant2, other.PromptWithContentVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::HammingAI.PromptWithContentVariant2?>.Default.Equals(PromptWithContentVariant2, other.PromptWithContentVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(PromptWithContent obj1, PromptWithContent obj2)
         {
@@ -277,7 +277,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(PromptWithContent obj1, PromptWithContent obj2)
         {
@@ -285,7 +285,7 @@ namespace HammingAI
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

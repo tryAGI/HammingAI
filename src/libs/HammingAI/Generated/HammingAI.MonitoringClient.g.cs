@@ -10,7 +10,7 @@ namespace HammingAI
     public sealed partial class MonitoringClient : global::HammingAI.IMonitoringClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://app.hamming.ai/api/rest";
 
@@ -37,7 +37,7 @@ namespace HammingAI
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::HammingAI.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {

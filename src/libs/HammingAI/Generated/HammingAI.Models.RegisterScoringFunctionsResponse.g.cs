@@ -4,12 +4,12 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class RegisterScoringFunctionsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("scoring")]
         public global::System.Collections.Generic.IList<global::HammingAI.CustomScoringConfig>? Scoring { get; set; }

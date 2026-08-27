@@ -20,7 +20,7 @@ namespace HammingAI.JsonConverters
                     {
                         return global::HammingAI.ScoreTypeExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

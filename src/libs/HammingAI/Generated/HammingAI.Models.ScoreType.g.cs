@@ -4,40 +4,40 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ScoreType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AccuracyAi,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextPrecision,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextRecall,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         FactsCompare,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Hallucination,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Refusal,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SqlAst,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StringDiff,
     }
