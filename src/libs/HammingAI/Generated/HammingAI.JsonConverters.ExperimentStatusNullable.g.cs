@@ -20,7 +20,7 @@ namespace HammingAI.JsonConverters
                     {
                         return global::HammingAI.ExperimentStatusExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

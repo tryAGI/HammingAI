@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateExperimentItemRequest
     {

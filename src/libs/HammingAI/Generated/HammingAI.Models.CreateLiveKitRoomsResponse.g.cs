@@ -4,7 +4,7 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateLiveKitRoomsResponse
     {
@@ -15,7 +15,7 @@ namespace HammingAI
         public string? ExperimentId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rooms")]
         public global::System.Collections.Generic.IList<global::HammingAI.LiveKitRoom>? Rooms { get; set; }

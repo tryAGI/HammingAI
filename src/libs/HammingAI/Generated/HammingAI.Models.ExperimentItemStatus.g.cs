@@ -4,28 +4,28 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ExperimentItemStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Created,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Failed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scored,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scoring,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ScoringFailed,
     }

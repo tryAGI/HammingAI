@@ -11,7 +11,7 @@ namespace HammingAI
     public sealed partial class HammingAIClient : global::HammingAI.IHammingAIClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://app.hamming.ai/api/rest";
 
@@ -38,7 +38,7 @@ namespace HammingAI
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::HammingAI.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
@@ -48,7 +48,7 @@ namespace HammingAI
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DatasetsClient Datasets => new DatasetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -57,7 +57,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ExperimentsClient Experiments => new ExperimentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -66,7 +66,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MonitoringClient Monitoring => new MonitoringClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -75,7 +75,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PromptsClient Prompts => new PromptsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -84,7 +84,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScoringClient Scoring => new ScoringClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -93,7 +93,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TracingClient Tracing => new TracingClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -102,7 +102,7 @@ namespace HammingAI
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VoiceAgentsClient VoiceAgents => new VoiceAgentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {

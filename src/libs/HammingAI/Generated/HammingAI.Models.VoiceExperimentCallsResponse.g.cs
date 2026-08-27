@@ -4,12 +4,12 @@
 namespace HammingAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VoiceExperimentCallsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("calls")]
         public global::System.Collections.Generic.IList<global::HammingAI.VoiceExperimentCall>? Calls { get; set; }

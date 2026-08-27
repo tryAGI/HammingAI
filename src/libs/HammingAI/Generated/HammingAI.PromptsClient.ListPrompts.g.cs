@@ -137,7 +137,7 @@ namespace HammingAI
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                 global::HammingAI.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
