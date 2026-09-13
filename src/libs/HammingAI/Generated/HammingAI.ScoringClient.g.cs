@@ -34,7 +34,7 @@ namespace HammingAI
         /// <inheritdoc/>
         public global::HammingAI.AutoSDKClientOptions Options { get; }
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::HammingAI.SourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::HammingAI.ScoringSourceGenerationContext.Default);
 
         /// <summary>
         ///
