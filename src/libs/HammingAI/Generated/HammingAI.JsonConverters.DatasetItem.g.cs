@@ -70,7 +70,7 @@ namespace HammingAI.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.DatasetItemValue), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.DatasetItemValue?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.DatasetItemValue).Name}");
-                var __element0 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.Value!, typeInfo);
+                var __element0 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.PickValue(), typeInfo);
                 if (__element0.ValueKind != global::System.Text.Json.JsonValueKind.Object)
                 {
                     throw new global::System.Text.Json.JsonException("AllOf values must serialize as JSON objects.");
@@ -88,7 +88,7 @@ namespace HammingAI.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::HammingAI.DatasetItemVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::HammingAI.DatasetItemVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::HammingAI.DatasetItemVariant2).Name}");
-                var __element1 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.DatasetItemVariant2!, typeInfo);
+                var __element1 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.PickDatasetItemVariant2(), typeInfo);
                 if (__element1.ValueKind != global::System.Text.Json.JsonValueKind.Object)
                 {
                     throw new global::System.Text.Json.JsonException("AllOf values must serialize as JSON objects.");
