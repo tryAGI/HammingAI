@@ -42,8 +42,8 @@ namespace HammingAI
         /// <summary>
         ///
         /// </summary>
-        public global::HammingAI.DatasetItemValue PickValue() => IsValue
-            ? Value!
+        public global::HammingAI.DatasetItemValue PickValue() => Value is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Value' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace HammingAI
         /// <summary>
         ///
         /// </summary>
-        public global::HammingAI.DatasetItemVariant2 PickDatasetItemVariant2() => IsDatasetItemVariant2
-            ? DatasetItemVariant2!
+        public global::HammingAI.DatasetItemVariant2 PickDatasetItemVariant2() => DatasetItemVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'DatasetItemVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsValue && value != null)
+            if (Value is { } __value0 && value != null)
             {
-                return value(Value!);
+                return value(__value0);
             }
-            else if (IsDatasetItemVariant2 && datasetItemVariant2 != null)
+            else if (DatasetItemVariant2 is { } __value1 && datasetItemVariant2 != null)
             {
-                return datasetItemVariant2(DatasetItemVariant2!);
+                return datasetItemVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsValue)
+            if (Value is { } __value0)
             {
-                value?.Invoke(Value!);
+                value?.Invoke(__value0);
             }
-            else if (IsDatasetItemVariant2)
+            else if (DatasetItemVariant2 is { } __value1)
             {
-                datasetItemVariant2?.Invoke(DatasetItemVariant2!);
+                datasetItemVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsValue)
+            if (Value is { } __value0)
             {
-                value?.Invoke(Value!);
+                value?.Invoke(__value0);
             }
-            else if (IsDatasetItemVariant2)
+            else if (DatasetItemVariant2 is { } __value1)
             {
-                datasetItemVariant2?.Invoke(DatasetItemVariant2!);
+                datasetItemVariant2?.Invoke(__value1);
             }
         }
 

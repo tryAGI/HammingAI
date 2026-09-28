@@ -42,8 +42,8 @@ namespace HammingAI
         /// <summary>
         ///
         /// </summary>
-        public global::HammingAI.Prompt PickPrompt() => IsPrompt
-            ? Prompt!
+        public global::HammingAI.Prompt PickPrompt() => Prompt is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Prompt' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace HammingAI
         /// <summary>
         ///
         /// </summary>
-        public global::HammingAI.PromptWithContentVariant2 PickPromptWithContentVariant2() => IsPromptWithContentVariant2
-            ? PromptWithContentVariant2!
+        public global::HammingAI.PromptWithContentVariant2 PickPromptWithContentVariant2() => PromptWithContentVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PromptWithContentVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsPrompt && prompt != null)
+            if (Prompt is { } __value0 && prompt != null)
             {
-                return prompt(Prompt!);
+                return prompt(__value0);
             }
-            else if (IsPromptWithContentVariant2 && promptWithContentVariant2 != null)
+            else if (PromptWithContentVariant2 is { } __value1 && promptWithContentVariant2 != null)
             {
-                return promptWithContentVariant2(PromptWithContentVariant2!);
+                return promptWithContentVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsPrompt)
+            if (Prompt is { } __value0)
             {
-                prompt?.Invoke(Prompt!);
+                prompt?.Invoke(__value0);
             }
-            else if (IsPromptWithContentVariant2)
+            else if (PromptWithContentVariant2 is { } __value1)
             {
-                promptWithContentVariant2?.Invoke(PromptWithContentVariant2!);
+                promptWithContentVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace HammingAI
                 Validate();
             }
 
-            if (IsPrompt)
+            if (Prompt is { } __value0)
             {
-                prompt?.Invoke(Prompt!);
+                prompt?.Invoke(__value0);
             }
-            else if (IsPromptWithContentVariant2)
+            else if (PromptWithContentVariant2 is { } __value1)
             {
-                promptWithContentVariant2?.Invoke(PromptWithContentVariant2!);
+                promptWithContentVariant2?.Invoke(__value1);
             }
         }
 
